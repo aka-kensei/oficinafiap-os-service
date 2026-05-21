@@ -1,0 +1,14 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: os-service-ingress
+  namespace: default
+spec:
+  entryPoints:
+    - web
+  routes:
+    - match: PathPrefix(`/api/clientes`) || PathPrefix(`/api/veiculos`) || PathPrefix(`/api/catalogo`) || PathPrefix(`/api/ordemdeservico`) || PathPrefix(`/api/sagas`) || PathPrefix(`/health`) || PathPrefix(`/swagger`)
+      kind: Rule
+      services:
+        - name: os-service
+          port: 80
